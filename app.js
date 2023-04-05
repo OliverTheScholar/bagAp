@@ -1,22 +1,29 @@
-const captureBtn = document.querySelector('#capture-btn');
-const preview = document.querySelector('#preview');
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const captureBtn = document.getElementById('capture-btn');
+const ctx = canvas.getContext('2d');
 
+// Get user's camera stream
+navigator.mediaDevices.getUserMedia({ video: true })
+  .then(stream => {
+    video.srcObject = stream;
+  })
+  .catch(error => {
+    console.error(`Error accessing camera: ${error}`);
+  });
+
+// Draw video stream on canvas
+function drawVideo() {
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  requestAnimationFrame(drawVideo);
+}
+drawVideo();
+
+// Capture photo
 captureBtn.addEventListener('click', () => {
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-            const video = document.createElement('video');
-            video.srcObject = stream;
-            video.play();
-            preview.appendChild(video);
-            const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const dataUrl = canvas.toDataURL();
-            // do something with the dataUrl, such as upload it to a server
-
-            
-        })
-        .catch(err => console.error(err));
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  const dataURL = canvas.toDataURL('image/jpeg');
+  console.log(`Captured photo: ${dataURL}`);
 });
+
+
