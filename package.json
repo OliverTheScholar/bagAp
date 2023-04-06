@@ -4,9 +4,22 @@
   "description": "mvp",
   "main": "app.js",
   "scripts": {
-  "start": "node app.js",
-  "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OliverTheScholar/bagAp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/OliverTheScholar/bagAp/issues"
+  },
+  "homepage": "https://github.com/OliverTheScholar/bagAp#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.1"
+  },
+  "devDependencies": {}
 }
