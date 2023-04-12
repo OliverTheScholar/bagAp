@@ -1,76 +1,125 @@
 <!DOCTYPE html>
 <html>
-<style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: 100vh;
-      margin: 0;
-    }
-  
-    #image-preview {
-    margin: 10px;
-    width: 100vw;
-    height: calc(100vh - 600px); /* subtract the height of the header and button */
-    object-fit: cover;
-    }
-
-    #upload-btn {
-      align-self: center;
-      padding: 20px 40px;
-      font-size: 48px;
-    }
-
-    input[type="file"]::file-selector-button {
-    font-weight: bold;
-    color: dodgerblue;
-    padding: 60px;
-    border: thin solid grey;
-    border-radius: 3px;
-}
-
-    
-  </style>
   <head>
     <title>My App</title>
+    <style>
+      
+      
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+        margin-top: -200px;
+      }
+
+      #image-preview {
+        margin: 10px;
+        width: 100vw;
+        height: calc(75vh - 0px); /* subtract the height of the header and button */
+        object-fit: cover;
+      }
+
+      #upload-btn {
+        align-self: center;
+        padding: 20px 40px;
+        font-family: Arial, sans-serif;
+        font-size: 48px;
+        font-weight: bold;
+        background-color: #03C03C;
+        color: white;
+        border-radius: 10px;
+      }
+
+      input[type="file"]::file-selector-button {
+        display: none;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+      }
+
+
+#take-photo-btn {
+  padding: 20px 40px;
+  font-family: Arial, sans-serif;
+  font-size: 48px;
+  font-weight: bold;
+  background-color: #03C03C;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  max-width: 400px;
+
+  }
+  .hidden {
+    display: none;
+    }
+
+    </style>
   </head>
+
   <body>
-    <input type="file" accept="image/*" capture onchange="handleFileSelect(event)">
-    <img id="image-preview">
-    <button id="upload-btn">Upload Photo</button>
+    <div class="container">
+      <input type="file" accept="image/*" capture onchange="handleFileSelect(event)" />
+      <img id="image-preview" />
+      <button class="hidden" id="upload-btn">Submit</button>
+      <button id="take-photo-btn">Snap Receipt</button>
+    </div>
+
     <script>
       function handleFileSelect(event) {
         const selectedFile = event.target.files[0];
-        console.log('Selected file:', selectedFile);
-        const imgPreview = document.getElementById('image-preview');
+        console.log("Selected file:", selectedFile);
+        const imgPreview = document.getElementById("image-preview");
         imgPreview.src = URL.createObjectURL(selectedFile);
+        if (selectedFile) {
+          document.getElementById("take-photo-btn").classList.add("hidden");
+          document.getElementById("upload-btn").classList.remove("hidden");
+        }
+        
       }
 
-      const uploadBtn = document.getElementById('upload-btn');
-      uploadBtn.addEventListener('click', () => {
-        const selectedFile = document.querySelector('input[type=file]').files[0];
+      const uploadBtn = document.getElementById("upload-btn");
+      uploadBtn.addEventListener("click", () => {
+        const selectedFile = document.querySelector('input[type="file"]').files[0];
         const formData = new FormData();
-        formData.append('photo', selectedFile);
-        fetch('https://7bf2-2600-6c65-737f-da5c-9569-ac6d-4294-da88.ngrok-free.app/sendemail', {
-          method: 'POST',
-          body: formData
+        formData.append("photo", selectedFile);
+        fetch("https://a152-2600-6c65-737f-da5c-9569-ac6d-4294-da88.ngrok-free.app/sendemail", {
+          method: "POST",
+          body: formData,
         })
-        .then(response => response.json())
-        .then(result => {
-          console.log(result);
-          if (result.success) {
-            window.location.href = "success.html";
-          } else {
-            alert('Error sending email!');
-          }
-        })
-        .catch(error => {
-          console.error(error);
-          alert('Error sending email!');
-        });
-        });
+          .then((response) => response.json())
+          .then((result) => {
+            console.log(result);
+            if (result.success) {
+              window.location.href = "success.html";
+            } else {
+              alert("Error submitting photo!");
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+            alert("Error submitting photo!");
+          });
+      });
+
+      const takePhotoBtn = document.getElementById("take-photo-btn");
+      takePhotoBtn.addEventListener("click", () => {
+        const fileInput = document.querySelector('input[type="file"]');
+        fileInput.click();
+      });
     </script>
   </body>
 </html>
