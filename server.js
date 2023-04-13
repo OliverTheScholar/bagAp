@@ -44,7 +44,7 @@ app.post('/sendemail', upload.single('photo'), (req, res) => {
     from: 'bagapp@zohomail.com',
     to: 'bagapp69@gmail.com',
     subject: 'money, money, money',
-    text: 'A new photo has been submitted.\n\nIP address: ${ip}`',
+    text: `A new photo has been submitted.\n\nIP address: ${ip}`,
     attachments: [
       {
         filename: 'photo.jpg',
