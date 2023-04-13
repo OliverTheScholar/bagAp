@@ -4,9 +4,6 @@ const nodemailer = require('nodemailer');
 const multer = require('multer');
 const app = express();
 
-// Serve static files from the public directory
-
-app.use(express.static(path.join(__dirname, 'bagapp')));
 
 // Serve success.html file
 app.get('/success', function(req, res) {
