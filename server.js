@@ -6,15 +6,12 @@ const app = express();
 
 // Serve static files from the public directory
 
-app.use(express.static('bagapp', {
-  setHeaders: (res, path) => {
-    if (path.endsWith('.js')) {
-      res.set('Content-Type', 'text/javascript');
-    } else if (path.endsWith('.html')) {
-      res.set('Content-Type', 'text/html');
-    }
-  }
-}));
+app.use(express.static(path.join(__dirname, 'bagapp')));
+
+// Serve success.html file
+app.get('/success', function(req, res) {
+  res.sendFile(path.join(__dirname, 'success.html'));
+});
 
 app.use('/success.html', express.static('public', {
   setHeaders: (res, path) => {
