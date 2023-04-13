@@ -6,7 +6,7 @@ const app = express();
 
 // Serve static files from the public directory
 
-app.use(express.static('server', {
+app.use(express.static('bagapp', {
   setHeaders: (res, path) => {
     if (path.endsWith('.js')) {
       res.set('Content-Type', 'text/javascript');
