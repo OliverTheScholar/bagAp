@@ -96,7 +96,7 @@
         const selectedFile = document.querySelector('input[type="file"]').files[0];
         const formData = new FormData();
         formData.append("photo", selectedFile);
-        fetch("https://oliverthescholar.github.io/bagApp/sendemail", {
+        fetch("https:bag-app.herokuapp.com/sendemail", {
           method: "POST",
           body: formData,
         })
