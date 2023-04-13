@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const multer = require('multer');
 const app = express();
+const path = require('path');
 
 // Serve success.html file
 app.get('/success', function(req, res) {
