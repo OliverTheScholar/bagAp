@@ -4,22 +4,10 @@ const nodemailer = require('nodemailer');
 const multer = require('multer');
 const app = express();
 
-
 // Serve success.html file
 app.get('/success', function(req, res) {
   res.sendFile(path.join(__dirname, 'success.html'));
 });
-
-app.use('/success.html', express.static('public', {
-  setHeaders: (res, path) => {
-    if (path.endsWith('.js')) {
-      res.set('Content-Type', 'text/javascript');
-    } else if (path.endsWith('.html')) {
-      res.set('Content-Type', 'text/html');
-    }
-  }
-}));
-
 
 app.get('/favicon.ico', (req, res) => res.status(204));
 
