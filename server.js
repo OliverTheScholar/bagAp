@@ -16,10 +16,8 @@ app.use(express.static('server', {
   }
 }));
 
-app.get('/client.js', function(req, res) {
-  res.set('Content-Type', 'text/javascript');
-  res.sendFile(__dirname + '/client.js');
-});
+
+app.get('/favicon.ico', (req, res) => res.status(204));
 
 // Route for handling GET requests to the root URL
 app.get('/', (req, res) => {
