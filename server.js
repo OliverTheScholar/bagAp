@@ -10,8 +10,6 @@ app.get('/success', function(req, res) {
   res.sendFile(path.join(__dirname, 'success.html'));
 });
 
-app.get('/favicon.ico', (req, res) => res.status(204));
-
 // Route for handling GET requests to the root URL
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
