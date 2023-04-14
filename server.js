@@ -5,8 +5,9 @@ const multer = require('multer');
 const app = express();
 const path = require('path');
 
-
-app.use(express.static('public'));
+app.get('/public/apple-touch-icon.png', function(req, res) {
+  res.sendFile(path.join(__dirname, 'success.html'));
+});
 
 // Serve success.html file
 app.get('/success', function(req, res) {
