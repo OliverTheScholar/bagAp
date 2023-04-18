@@ -50,6 +50,12 @@
       }
 
 
+      #venmo-form {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+      }
+
+
 #take-photo-btn {
   padding: 20px 40px;
   font-family: Arial, sans-serif;
@@ -77,6 +83,11 @@
     <div class="container">
       <input type="file" accept="image/*" capture onchange="handleFileSelect(event)" />
       <img id="image-preview" />
+      <form class="hidden" id="venmo-form">
+        <label for="input-field">Venmo:</label>
+        <input type="text" id="venmo-address" name="inputField">
+        <br><br>
+      </form>
       <button class="hidden" id="upload-btn">Submit</button>
       <button id="take-photo-btn">Snap Receipt</button>
     </div>
@@ -90,6 +101,7 @@
         if (selectedFile) {
           document.getElementById("take-photo-btn").classList.add("hidden");
           document.getElementById("upload-btn").classList.remove("hidden");
+          document.getElementById("venmo-form").classList.remove("hidden");
         }
         
       }
@@ -97,7 +109,7 @@
       const uploadBtn = document.getElementById("upload-btn");
       uploadBtn.addEventListener("click", () => {
         const selectedFile = document.querySelector('input[type="file"]').files[0];
-        const formData = new FormData();
+        const formData = new FormData(document.getElementById("venmo-address"));
         formData.append("photo", selectedFile);
         fetch("/sendemail", {
           method: "POST",

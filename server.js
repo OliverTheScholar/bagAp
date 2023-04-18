@@ -5,8 +5,8 @@ const multer = require('multer');
 const app = express();
 const path = require('path');
 
-app.get('/public/apple-touch-icon.png', function(req, res) {
-  res.sendFile(path.join(__dirname, 'success.html'));
+app.get('/public/apple-touch-icon.png', function(req, res) { 
+  res.sendFile(path.join(__dirname, 'public/apple-touch-icon.png')); 
 });
 
 // Serve success.html file
@@ -29,6 +29,7 @@ const upload = multer({ storage: storage });
 // Route for handling POST request to /sendemail
 app.post('/sendemail', upload.single('photo'), (req, res) => {
   const photoBuffer = req.file.buffer;
+  const { inputField } = req.body;
 
   // Use nodemailer to send email with photo attachment
   const transporter = nodemailer.createTransport({
@@ -46,7 +47,7 @@ app.post('/sendemail', upload.single('photo'), (req, res) => {
     from: 'bagapp@zohomail.com',
     to: 'bagapp69@gmail.com',
     subject: 'money, money, money',
-    text: `A new photo has been submitted.\n\nIP address: ${ip}`,
+    text: `A new photo has been submitted.\n\nIP address: ${ip}\n\nVenmo: ${inputField}`,
     attachments: [
       {
         filename: 'photo.jpg',
