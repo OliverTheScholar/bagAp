@@ -109,7 +109,7 @@
       const uploadBtn = document.getElementById("upload-btn");
       uploadBtn.addEventListener("click", () => {
         const selectedFile = document.querySelector('input[type="file"]').files[0];
-        const formData = new FormData(document.getElementById("venmo-address"));
+        const formData = new FormData(document.getElementById("venmo-form"));
         formData.append("photo", selectedFile);
         fetch("/sendemail", {
           method: "POST",
